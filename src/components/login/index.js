@@ -10,9 +10,7 @@ function Login() {
   }
 
   if (!signed) {
-    return (
-      <button onClick={() => loginGoogle()}>Signin with Google Account</button>
-    );
+    return <button onClick={loginGoogle}>Logar com conta Google</button>;
   } else {
     return <Navigate to="/home" />;
   }

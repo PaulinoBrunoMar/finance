@@ -1,54 +1,12 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../services/firebaseConfig";
+import Header from "../header";
+import AddExpenses from "../addExpenses";
 
 function Home() {
-  const { user, signOut } = useContext(AuthContext);
-  let userOn = null;
-
-  try {
-    userOn = JSON.parse(user);
-  } catch (e) {
-    userOn = user;
-  }
-  console.log(userOn);
-  async function addExpense() {
-    try {
-      const docRef = await addDoc(collection(db, userOn.uid), {
-        Despesa: "",
-        Descrição: "",
-        Vencimento: "",
-        Valor: 0,
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  }
-
   return (
     <div>
-      <h2>Bem Vindo {userOn.displayName}!</h2>
-      <button onClick={signOut}>Sair</button>
-      <br />
-      <br />
-
-      <div>
-        <div>
-          <label htmlFor="despesa">Despesa</label>
-          <input type="text" id="despesa" placeholder="Insira a despesa" />
-        </div>
-        <div>
-          <label htmlFor="valor">Valor</label>
-          <input type="number" id="valor" placeholder="R$..." />
-        </div>
-        <div>
-          <label htmlFor="vencimento">Vencimento</label>
-          <input type="date" id="vencimento" />
-        </div>
-      </div>
-      <button onClick={addExpense}>Adicionar despesa</button>
+      <Header />
+      <AddExpenses />
 
       <div>
         <h4>Suas despesas de Maio</h4>

@@ -1,10 +1,11 @@
 import { AuthProvider } from "./components/context";
 import Router from "./routes/router";
-import ReactDOM from "react-dom";
+import GlobalStyle from "./style/global";
 
 function App() {
   return (
     <AuthProvider>
+      <GlobalStyle />
       <Router />
     </AuthProvider>
   );

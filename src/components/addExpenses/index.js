@@ -9,17 +9,18 @@ function AddExpenses() {
   const [cost, setCost] = useState();
   const [expiration, setExpiration] = useState("");
 
+  /* const date = new Date(); // Ano, mês e dia
+  const month = date.toLocaleString("default", { month: "long" }); */
+
   const { user } = useContext(AuthContext);
   let userOn = null;
-
-  const date = new Date(); // Ano, mês e dia
-  const month = date.toLocaleString("default", { month: "long" });
 
   try {
     userOn = JSON.parse(user);
   } catch (e) {
-    userOn = user;
+    console.log(e);
   }
+
   async function addExpense() {
     try {
       const docRef = await addDoc(collection(db, userOn.uid), {

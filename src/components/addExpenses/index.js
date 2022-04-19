@@ -1,18 +1,18 @@
 import React, { useContext, useState } from "react";
 import * as S from "./style";
-import { AuthContext } from "../context";
+import { MyContext } from "../context";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 
 function AddExpenses() {
-  const [expense, setExpense] = useState("");
+  const [expenseName, setExpenseName] = useState("");
   const [cost, setCost] = useState();
   const [expiration, setExpiration] = useState("");
 
   /* const date = new Date(); // Ano, mês e dia
   const month = date.toLocaleString("default", { month: "long" }); */
 
-  const { user } = useContext(AuthContext);
+  const { user, getExpenses } = useContext(MyContext);
   let userOn = null;
 
   try {
@@ -24,7 +24,7 @@ function AddExpenses() {
   async function addExpense() {
     try {
       const docRef = await addDoc(collection(db, userOn.uid), {
-        Despesa: expense,
+        Despesa: expenseName,
         Vencimento: expiration,
         Valor: parseFloat(cost),
       });
@@ -32,6 +32,7 @@ function AddExpenses() {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    getExpenses();
   }
 
   return (
@@ -39,7 +40,7 @@ function AddExpenses() {
       <S.Inpput
         type="text"
         placeholder="Nome da Despesa..."
-        onChange={(e) => setExpense(e.target.value)}
+        onChange={(e) => setExpenseName(e.target.value)}
       ></S.Inpput>
       <S.Inpput
         type="number"

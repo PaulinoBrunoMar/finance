@@ -1,28 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import * as S from "./style";
-import { AuthContext } from "../context";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../services/firebaseConfig";
+import { MyContext } from "../context";
 
 function ShowExpenses() {
-  const { user } = useContext(AuthContext);
-  const [expenses, setExpenses] = useState([]);
-  let userOn = null;
-
-  try {
-    userOn = JSON.parse(user);
-  } catch (e) {
-    console.log(e);
-  }
+  const { getExpenses, expenses, deleteExpense } = useContext(MyContext);
 
   useEffect(() => {
     getExpenses();
   }, []);
-
-  const getExpenses = async () => {
-    const data = await getDocs(collection(db, userOn.uid));
-    setExpenses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
 
   return (
     <>
@@ -43,7 +28,7 @@ function ShowExpenses() {
                 <td>{doc.Valor}</td>
                 <td>
                   <button>Edit</button>
-                  <button>Del</button>
+                  <button onClick={(e) => deleteExpense(doc.id)}>Del</button>
                 </td>
               </tr>
             );

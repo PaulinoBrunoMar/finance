@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../context";
+import { MyContext } from "../context";
 
 function Login() {
-  const { signIn, signed } = useContext(AuthContext);
+  const { signIn, signed } = useContext(MyContext);
 
   async function loginGoogle() {
     await signIn();

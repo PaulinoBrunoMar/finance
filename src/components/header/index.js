@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context";
+import { MyContext } from "../context";
 import * as S from "./style";
 
 function Header() {
-  const { user, signOut } = useContext(AuthContext);
+  const { user, signOut } = useContext(MyContext);
   let userOn = null;
 
   try {

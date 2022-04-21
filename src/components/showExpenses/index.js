@@ -3,7 +3,8 @@ import * as S from "./style";
 import { MyContext } from "../context";
 
 function ShowExpenses() {
-  const { getExpenses, expenses, deleteExpense } = useContext(MyContext);
+  const { getExpenses, expenses, deleteExpense, setEditId } =
+    useContext(MyContext);
 
   useEffect(() => {
     getExpenses();
@@ -25,9 +26,9 @@ function ShowExpenses() {
               <tr key={doc.id}>
                 <td>{doc.Despesa}</td>
                 <td>{doc.Vencimento}</td>
-                <td>{doc.Valor}</td>
+                <td>R$: {doc.Valor}</td>
                 <td>
-                  <button>Edit</button>
+                  <button onClick={(e) => setEditId(doc.id)}>Edit</button>
                   <button onClick={(e) => deleteExpense(doc.id)}>Del</button>
                 </td>
               </tr>

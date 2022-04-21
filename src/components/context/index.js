@@ -8,6 +8,8 @@ import {
   getDocs,
   doc,
   updateDoc,
+  addDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 
@@ -18,6 +20,10 @@ export const MyContextProvider = ({ children }) => {
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [expenses, setExpenses] = useState([]);
+  const [expenseName, setExpenseName] = useState("");
+  const [cost, setCost] = useState();
+  const [expiration, setExpiration] = useState("");
+  const [editId, setEditId] = useState("");
   let userOn = null;
 
   useEffect(() => {
@@ -61,23 +67,60 @@ export const MyContextProvider = ({ children }) => {
     console.log(e);
   }
 
+  async function addEditExpense() {
+    if (editId !== undefined && editId !== "") {
+      try {
+        const docRef = await updateDoc(doc(db, userOn.uid, editId), {
+          Despesa: expenseName,
+          Vencimento: expiration,
+          Valor: parseFloat(cost),
+        });
+        console.log("Document updated with ID: ", editId);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    } else {
+      try {
+        const docRef = await addDoc(collection(db, userOn.uid), {
+          Despesa: expenseName,
+          Vencimento: expiration,
+          Valor: parseFloat(cost),
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    }
+    getExpenses();
+    setEditId("");
+    setExpenseName("");
+    setCost("");
+    setExpiration("");
+  }
+
   const getExpenses = async () => {
     const data = await getDocs(collection(db, userOn.uid));
     setExpenses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
   const deleteExpense = async (id) => {
-    const expenseDoc = doc(db, userOn.uid, id);
+    const expenseDoc = await doc(db, userOn.uid, id);
     deleteDoc(expenseDoc);
+    console.log("Document deleted with ID: ", id);
     getExpenses();
   };
 
-  const updateExpense = async (id, updatedExpense) => {
-    const expenseDoc = doc(db, userOn.uid, id);
-    updateDoc(expenseDoc, updatedExpense);
-    getExpenses();
+  const editHandler = async (id) => {
+    try {
+      const expenseDoc = doc(db, userOn.uid, id);
+      const docSnap = await getDoc(expenseDoc);
+      setExpenseName(docSnap.data().Despesa);
+      setCost(docSnap.data().Valor);
+      setExpiration(docSnap.data().Vencimento);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
   return (
     <MyContext.Provider
       value={{
@@ -88,7 +131,16 @@ export const MyContextProvider = ({ children }) => {
         getExpenses,
         expenses,
         deleteExpense,
-        updateExpense,
+        editHandler,
+        setExpiration,
+        expiration,
+        setCost,
+        cost,
+        setExpenseName,
+        expenseName,
+        addEditExpense,
+        editId,
+        setEditId,
       }}
     >
       {children}

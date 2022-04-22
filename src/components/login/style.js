@@ -7,31 +7,35 @@ import {
 } from "../UI/variables";
 
 export const Div = styled.div`
-  border: solid 1px ${corSecundaria};
-  border-radius: 5px;
-  margin: 10px;
-  padding: 5px;
-  height: 130px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   background-color: ${corPrimaria};
+  height: 100vh;
+  width: 100vw;
 `;
 
-export const Inpput = styled.input`
-  padding: 10px;
-  height: 45px;
-  width: 160px;
-  font-weight: bold;
-  color: ${corPrimaria};
+export const H1 = styled.h1`
+  font-size: 80px;
+  color: ${corSecundaria};
+  margin-top: 30vh;
+
+  &::first-letter {
+    font-size: 105px;
+    color: ${corDestaque};
+  }
 `;
+
+export const Icon = styled.img``;
 
 export const Button = styled.button`
-  height: 40px;
-  width: 160px;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  padding: 20px;
+  width: 220px;
+  height: 30px;
   border-radius: 50px;
-  padding: 5px;
   font-weight: bold;
   background-color: ${corButtons};
   color: ${corPrimaria};

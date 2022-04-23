@@ -3,17 +3,20 @@ import * as S from "./style";
 import { MyContext } from "../context";
 
 function ShowExpenses() {
-  const { getExpenses, expenses, deleteExpense, setEditId } =
+  const { getExpenses, expenses, deleteExpense, setEditId, deleteAll } =
     useContext(MyContext);
 
   useEffect(() => {
     getExpenses();
   }, []);
 
+  let total = 0;
+
   return (
     <>
       <S.List>
         {expenses.map((doc) => {
+          total += doc.Valor;
           return (
             <S.Card key={doc.id}>
               <S.Row>
@@ -26,7 +29,12 @@ function ShowExpenses() {
                 </S.Edit>
               </S.Row>
               <S.Row>
-                <S.Span>{doc.Vencimento}</S.Span>
+                <S.Span>
+                  <S.Calendar className="material-symbols-outlined">
+                    calendar_month
+                  </S.Calendar>
+                  {doc.Vencimento}
+                </S.Span>
                 <S.Value>R$: {doc.Valor}</S.Value>
                 <S.Delete
                   className="material-symbols-outlined"
@@ -38,8 +46,9 @@ function ShowExpenses() {
             </S.Card>
           );
         })}
+        <S.H1>Total: R$ {total}</S.H1>
+        <S.DelAll onClick={(e) => deleteAll()}>Delete All Expenses</S.DelAll>
       </S.List>
-      <h1>Total: R$</h1>
     </>
   );
 }

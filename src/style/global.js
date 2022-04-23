@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     outline: 0;
-    font-family: 'Montserrat Alternates', sans-serif;
+    font-family: 'Lato', sans-serif;
   }
   body {
     text-rendering: optimizeLegibility !important;

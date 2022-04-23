@@ -35,4 +35,5 @@ export const Button = styled.button`
   font-weight: bold;
   background-color: ${corButtons};
   color: ${corPrimaria};
+  cursor: pointer;
 `;

@@ -24,6 +24,7 @@ export const MyContextProvider = ({ children }) => {
   const [cost, setCost] = useState();
   const [expiration, setExpiration] = useState("");
   const [editId, setEditId] = useState("");
+  const [idForDell, setIdForDell] = useState([]);
   let userOn = null;
 
   useEffect(() => {
@@ -110,6 +111,15 @@ export const MyContextProvider = ({ children }) => {
     getExpenses();
   };
 
+  const deleteAll = async () => {
+    expenses.map(async (d) => {
+      const expenseDoc = await doc(db, userOn.uid, d.id);
+      deleteDoc(expenseDoc);
+      console.log("Document deleted with ID: ", d.id);
+    });
+    getExpenses();
+  };
+
   const editHandler = async (id) => {
     try {
       const expenseDoc = doc(db, userOn.uid, id);
@@ -141,6 +151,7 @@ export const MyContextProvider = ({ children }) => {
         addEditExpense,
         editId,
         setEditId,
+        deleteAll,
       }}
     >
       {children}

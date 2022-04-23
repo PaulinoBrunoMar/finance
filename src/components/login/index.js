@@ -17,7 +17,7 @@ function Login() {
       <S.Div>
         <S.H1>Finance</S.H1>
         <S.Button onClick={loginGoogle}>
-          <S.Icon src={icon} />
+          <img src={icon} alt="Google Icon" />
           Sign in with google
         </S.Button>
       </S.Div>

@@ -15,7 +15,7 @@ function Header() {
     <S.Div>
       <S.Img src={userOn.photoURL}></S.Img>
       <S.H1>{userOn.displayName}</S.H1>
-      <S.Button onClick={signOut}>Sair</S.Button>
+      <S.Button onClick={signOut}>SignOut</S.Button>
     </S.Div>
   );
 }

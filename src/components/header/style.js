@@ -38,11 +38,12 @@ export const H1 = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 50px;
+  width: 60px;
   height: 35px;
   border-radius: 50px;
   margin-left: auto;
   font-weight: bold;
   color: ${corPrimaria};
   background-color: ${corButtons};
+  cursor: pointer;
 `;

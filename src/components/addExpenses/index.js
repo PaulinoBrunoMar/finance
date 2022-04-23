@@ -3,9 +3,6 @@ import * as S from "./style";
 import { MyContext } from "../context";
 
 function AddExpenses() {
-  /* const date = new Date(); // Ano, mês e dia
-  const month = date.toLocaleString("default", { month: "long" }); */
-
   const {
     user,
     setExpenseName,
@@ -53,7 +50,7 @@ function AddExpenses() {
         value={expiration}
         onChange={(e) => setExpiration(e.target.value)}
       ></S.Inpput>
-      <S.Button onClick={addEditExpense}>Adicionar despesa</S.Button>
+      <S.Button onClick={addEditExpense}>Add/Edit</S.Button>
     </S.Div>
   );
 }

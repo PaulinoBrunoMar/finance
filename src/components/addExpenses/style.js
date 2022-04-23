@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  corButtons,
-  corDestaque,
-  corSecundaria,
-  corPrimaria,
-} from "../UI/variables";
+import { corButtons, corSecundaria, corPrimaria } from "../UI/variables";
 
 export const Div = styled.div`
   border: solid 1px ${corSecundaria};

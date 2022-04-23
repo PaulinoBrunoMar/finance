@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import * as S from "./style";
 import { MyContext } from "../context";
 
@@ -8,7 +8,7 @@ function ShowExpenses() {
 
   useEffect(() => {
     getExpenses();
-  }, []);
+  });
 
   let total = 0;
 

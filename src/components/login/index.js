@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { MyContext } from "../context";
 import * as S from "./style";
-import logo from "../../assets/logo.png";
 import icon from "../../assets/google-icon.png";
 
 function Login() {

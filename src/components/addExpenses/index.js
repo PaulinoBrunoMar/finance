@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import * as S from "./style";
 import { MyContext } from "../context";
 
@@ -13,22 +13,14 @@ function AddExpenses() {
     expiration,
     addEditExpense,
     editId,
-    setEditId,
     editHandler,
   } = useContext(MyContext);
-  let userOn = null;
-
-  try {
-    userOn = JSON.parse(user);
-  } catch (e) {
-    console.log(e);
-  }
 
   useEffect(() => {
     if (editId !== undefined && editId !== "") {
       editHandler(editId);
     }
-  }, [editId]);
+  });
 
   return (
     <S.Div>

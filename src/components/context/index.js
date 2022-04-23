@@ -10,6 +10,7 @@ import {
   updateDoc,
   addDoc,
   getDoc,
+  connectFirestoreEmulator,
 } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 
@@ -24,7 +25,6 @@ export const MyContextProvider = ({ children }) => {
   const [cost, setCost] = useState();
   const [expiration, setExpiration] = useState("");
   const [editId, setEditId] = useState("");
-  const [idForDell, setIdForDell] = useState([]);
   let userOn = null;
 
   useEffect(() => {
@@ -49,10 +49,7 @@ export const MyContextProvider = ({ children }) => {
         sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user));
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(error);
       });
   };
 
@@ -76,7 +73,7 @@ export const MyContextProvider = ({ children }) => {
           Vencimento: expiration,
           Valor: parseFloat(cost),
         });
-        console.log("Document updated with ID: ", editId);
+        console.log("Document updated with ID: ", docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
       }

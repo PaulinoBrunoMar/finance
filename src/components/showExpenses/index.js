@@ -8,7 +8,7 @@ function ShowExpenses() {
 
   useEffect(() => {
     getExpenses();
-  });
+  }, []);
 
   let total = 0;
 

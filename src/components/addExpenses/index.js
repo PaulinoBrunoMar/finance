@@ -19,7 +19,7 @@ function AddExpenses() {
     if (editId !== undefined && editId !== "") {
       editHandler(editId);
     }
-  });
+  }, [editId]);
 
   return (
     <S.Div>

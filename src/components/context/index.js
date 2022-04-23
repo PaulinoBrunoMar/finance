@@ -67,12 +67,12 @@ export const MyContextProvider = ({ children }) => {
   async function addEditExpense() {
     if (editId !== undefined && editId !== "") {
       try {
-        const docRef = await updateDoc(doc(db, userOn.uid, editId), {
+        await updateDoc(doc(db, userOn.uid, editId), {
           Despesa: expenseName,
           Vencimento: expiration,
           Valor: parseFloat(cost),
         });
-        console.log("Document updated with ID: ", docRef.id);
+        console.log("Document updated with ID: ", editId);
       } catch (e) {
         console.error("Error adding document: ", e);
       }

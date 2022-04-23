@@ -54,7 +54,9 @@ export const MyContextProvider = ({ children }) => {
 
   function signOut() {
     sessionStorage.clear();
+    setExpenses([]);
     setUser(null);
+
     return <Navigate to="/" />;
   }
 
@@ -96,8 +98,12 @@ export const MyContextProvider = ({ children }) => {
   }
 
   const getExpenses = async () => {
-    const data = await getDocs(collection(db, userOn.uid));
-    setExpenses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    try {
+      const data = await getDocs(collection(db, userOn.uid));
+      setExpenses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteExpense = async (id) => {

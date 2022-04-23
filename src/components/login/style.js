@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  corButtons,
-  corDestaque,
-  corSecundaria,
-  corPrimaria,
-} from "../UI/variables";
+import { corDestaque, corSecundaria, corPrimaria } from "../UI/variables";
 
 export const Div = styled.div`
   display: flex;

@@ -1,14 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from "react";
 import * as S from "./style";
 import { MyContext } from "../context";
 
 function ShowExpenses() {
-  const { getExpenses, expenses, deleteExpense, setEditId, deleteAll } =
-    useContext(MyContext);
+  const {
+    getExpenses,
+    expenses,
+    sweetConfirmForOne,
+    setEditId,
+    sweetConfirmForAll,
+  } = useContext(MyContext);
 
   useEffect(() => {
     getExpenses();
-  }, [getExpenses]);
+  }, []);
 
   let total = 0;
 
@@ -38,7 +44,7 @@ function ShowExpenses() {
                 <S.Value>R$: {doc.Valor}</S.Value>
                 <S.Delete
                   className="material-symbols-outlined"
-                  onClick={(e) => deleteExpense(doc.id)}
+                  onClick={(e) => sweetConfirmForOne(doc.id)}
                 >
                   delete
                 </S.Delete>
@@ -47,7 +53,9 @@ function ShowExpenses() {
           );
         })}
         <S.H1>Total: R$ {total}</S.H1>
-        <S.DelAll onClick={(e) => deleteAll()}>Delete All Expenses</S.DelAll>
+        <S.DelAll onClick={(e) => sweetConfirmForAll()}>
+          Delete All Expenses
+        </S.DelAll>
       </S.List>
     </>
   );

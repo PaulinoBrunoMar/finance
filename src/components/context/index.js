@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { app } from "../services/firebaseConfig";
 import { Navigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import {
   collection,
   deleteDoc,
@@ -66,6 +67,44 @@ export const MyContextProvider = ({ children }) => {
     console.log(e);
   }
 
+  const getExpenses = async () => {
+    try {
+      const data = await getDocs(collection(db, userOn.uid));
+      setExpenses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteExpense = (id) => {
+    const expenseDoc = doc(db, userOn.uid, id);
+    deleteDoc(expenseDoc);
+    console.log("Document deleted with ID: ", id);
+    getExpenses();
+  };
+
+  const deleteAll = () => {
+    // eslint-disable-next-line array-callback-return
+    expenses.map((d) => {
+      const expenseDoc = doc(db, userOn.uid, d.id);
+      deleteDoc(expenseDoc);
+      console.log("Document deleted with ID: ", d.id);
+    });
+    getExpenses();
+  };
+
+  const editHandler = async (id) => {
+    try {
+      const expenseDoc = doc(db, userOn.uid, id);
+      const docSnap = await getDoc(expenseDoc);
+      setExpenseName(docSnap.data().Despesa);
+      setCost(docSnap.data().Valor);
+      setExpiration(docSnap.data().Vencimento);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   async function addEditExpense() {
     if (editId !== undefined && editId !== "") {
       try {
@@ -97,42 +136,40 @@ export const MyContextProvider = ({ children }) => {
     setExpiration("");
   }
 
-  const getExpenses = async () => {
-    try {
-      const data = await getDocs(collection(db, userOn.uid));
-      setExpenses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteExpense = async (id) => {
-    const expenseDoc = await doc(db, userOn.uid, id);
-    deleteDoc(expenseDoc);
-    console.log("Document deleted with ID: ", id);
-    getExpenses();
-  };
-
-  const deleteAll = async () => {
-    expenses.map(async (d) => {
-      const expenseDoc = await doc(db, userOn.uid, d.id);
-      deleteDoc(expenseDoc);
-      console.log("Document deleted with ID: ", d.id);
+  const sweetConfirmForOne = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteExpense(id);
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
     });
-    getExpenses();
   };
 
-  const editHandler = async (id) => {
-    try {
-      const expenseDoc = doc(db, userOn.uid, id);
-      const docSnap = await getDoc(expenseDoc);
-      setExpenseName(docSnap.data().Despesa);
-      setCost(docSnap.data().Valor);
-      setExpiration(docSnap.data().Vencimento);
-    } catch (err) {
-      console.log(err);
-    }
+  const sweetConfirmForAll = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will delete all your expenses!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteAll();
+        Swal.fire("Cleaned!", "All Your expenses has been deleted.", "success");
+      }
+    });
   };
+
   return (
     <MyContext.Provider
       value={{
@@ -142,7 +179,6 @@ export const MyContextProvider = ({ children }) => {
         signOut,
         getExpenses,
         expenses,
-        deleteExpense,
         editHandler,
         setExpiration,
         expiration,
@@ -153,7 +189,8 @@ export const MyContextProvider = ({ children }) => {
         addEditExpense,
         editId,
         setEditId,
-        deleteAll,
+        sweetConfirmForOne,
+        sweetConfirmForAll,
       }}
     >
       {children}

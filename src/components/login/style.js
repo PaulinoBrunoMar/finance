@@ -17,16 +17,16 @@ export const Div = styled.div`
 `;
 
 export const H1 = styled.h1`
-  font-size: 80px;
+  font-size: 70px;
   color: ${corSecundaria};
-  margin-top: 30vh;
+  margin-top: 25vh;
   padding: 10px;
   font-family: "Montserrat Alternates", sans-serif;
   border: 5px solid ${corSecundaria};
   border-radius: 70px;
 
   &::first-letter {
-    font-size: 90px;
+    font-size: 80px;
     color: ${corDestaque};
   }
 `;
@@ -36,12 +36,12 @@ export const Button = styled.button`
   justify-content: space-between;
   display: flex;
   padding: 20px;
-  margin-top: 10px;
+  margin-top: 20px;
   width: 190px;
   height: 30px;
   border-radius: 50px;
   font-weight: bold;
-  background-color: ${corButtons};
+  background-color: white;
   color: ${corPrimaria};
   cursor: pointer;
 `;

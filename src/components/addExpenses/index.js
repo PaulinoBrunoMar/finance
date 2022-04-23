@@ -4,7 +4,6 @@ import { MyContext } from "../context";
 
 function AddExpenses() {
   const {
-    user,
     setExpenseName,
     expenseName,
     setCost,

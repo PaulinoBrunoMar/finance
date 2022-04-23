@@ -10,7 +10,6 @@ import {
   updateDoc,
   addDoc,
   getDoc,
-  connectFirestoreEmulator,
 } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 

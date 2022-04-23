@@ -19,6 +19,7 @@ function AddExpenses() {
     if (editId !== undefined && editId !== "") {
       editHandler(editId);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editId]);
 
   return (

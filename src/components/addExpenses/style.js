@@ -20,6 +20,7 @@ export const Inpput = styled.input`
   width: 160px;
   font-weight: bold;
   color: ${corPrimaria};
+  background-color: white;
 `;
 
 export const Button = styled.button`

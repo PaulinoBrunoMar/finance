@@ -45,5 +45,29 @@ export const Button = styled.button`
   font-weight: bold;
   color: ${corPrimaria};
   background-color: ${corButtons};
+  box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
   cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+
+  &:active {
+    transform: scale(0.98);
+    /* Scaling button to 0.98 to its original size */
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+    /* Lowering the shadow */
+`;
+
+export const ReloadBtn = styled.div`
+  margin-left: auto;
+  color: ${corButtons};
+  box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+
+  &:active {
+    transform: scale(0.98);
+    /* Scaling button to 0.98 to its original size */
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+    /* Lowering the shadow */
 `;

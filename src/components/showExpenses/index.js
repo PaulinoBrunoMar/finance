@@ -13,8 +13,9 @@ function ShowExpenses() {
   } = useContext(MyContext);
 
   useEffect(() => {
-    getExpenses();
-  }, []);
+      getExpenses()
+  },[])
+
 
   let total = 0;
   let totalFormatado = 0;

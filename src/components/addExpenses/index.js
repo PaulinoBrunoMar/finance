@@ -42,7 +42,7 @@ function AddExpenses() {
         value={expiration}
         onChange={(e) => setExpiration(e.target.value)}
       ></S.Inpput>
-      <S.Button onClick={addEditExpense}>Add/Edit</S.Button>
+      <S.Button onClick={addEditExpense}>Salvar</S.Button>
     </S.Div>
   );
 }

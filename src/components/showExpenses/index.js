@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from "react";
 import * as S from "./style";
 import { MyContext } from "../context";
@@ -10,19 +9,19 @@ function ShowExpenses() {
     sweetConfirmForOne,
     setEditId,
     sweetConfirmForAll,
+    alterCheck,
   } = useContext(MyContext);
 
   useEffect(() => {
       getExpenses()
-  },[])
-
+  },)
 
   let total = 0;
   let totalFormatado = 0;
   let valor = 0;
   let valorFormatado = 0;
-  let data_americana;
-  let data_brasileira;
+  let dataAmericana;
+  let dataBrasileira;
 
   return (
     <>
@@ -34,14 +33,15 @@ function ShowExpenses() {
           valor = doc.Valor;
           valorFormatado = valor.toFixed(2);
           valorFormatado = valorFormatado.replace(".", ",");
-          data_americana = doc.Vencimento;
-          data_brasileira = data_americana.split('-').reverse().join('/');
+          dataAmericana = doc.Vencimento;
+          dataBrasileira = dataAmericana.split('-').reverse().join('/');
 
           return (
-            <S.Card key={doc.id}>
+            <S.Card key={doc.id} checked={doc.Checked}>
               <S.Row>
-                <S.Name>{doc.Despesa}</S.Name>
+                <S.Name checked={doc.Checked} onClick={() => alterCheck(doc.id)}>{doc.Despesa}</S.Name>
                 <S.Edit
+                  checked={doc.Checked}
                   className="material-symbols-outlined"
                   onClick={(e) => setEditId(doc.id)}
                 >
@@ -53,10 +53,11 @@ function ShowExpenses() {
                   <S.Calendar className="material-symbols-outlined">
                     calendar_month
                   </S.Calendar>
-                  {data_brasileira}
+                  {dataBrasileira}
                 </S.Span>
                 <S.Value>R$: {valorFormatado}</S.Value>
                 <S.Delete
+                  checked={doc.Checked}
                   className="material-symbols-outlined"
                   onClick={(e) => sweetConfirmForOne(doc.id)}
                 >

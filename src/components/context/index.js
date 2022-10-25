@@ -105,6 +105,31 @@ export const MyContextProvider = ({ children }) => {
     }
   };
 
+  const alterCheck = async (id) => {
+    const expenseDoc = doc(db, userOn.uid, id);
+    const docSnap = await getDoc(expenseDoc);
+   if( docSnap.data().Checked === true){
+    try {
+      await updateDoc(doc(db, userOn.uid, id), {
+        Checked: false,
+      });
+      console.log("Document updated with ID: ", id);
+    } catch (e) {
+      console.error("Error updating document: ", e);
+    }
+   } else {
+    try {
+      await updateDoc(doc(db, userOn.uid, id), {
+        Checked: true,
+      });
+      console.log("Document updated with ID: ", id);
+    } catch (e) {
+      console.error("Error updating document: ", e);
+    }
+   }
+   getExpenses();
+  }
+
   async function addEditExpense() {
     if (editId !== undefined && editId !== "") {
       try {
@@ -115,7 +140,7 @@ export const MyContextProvider = ({ children }) => {
         });
         console.log("Document updated with ID: ", editId);
       } catch (e) {
-        console.error("Error adding document: ", e);
+        console.error("Error updating document: ", e);
       }
     } else {
       try {
@@ -123,6 +148,7 @@ export const MyContextProvider = ({ children }) => {
           Despesa: expenseName,
           Vencimento: expiration,
           Valor: parseFloat(cost),
+          Checked: false,
         });
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -191,6 +217,7 @@ export const MyContextProvider = ({ children }) => {
         setEditId,
         sweetConfirmForOne,
         sweetConfirmForAll,
+        alterCheck,
       }}
     >
       {children}

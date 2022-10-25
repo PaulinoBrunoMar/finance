@@ -15,6 +15,7 @@ export const Card = styled.div`
   padding: 5px;
   font-weight: bold;
   background-color: ${corSecundaria};
+  opacity: ${(props) => (props.checked ? "0.5" : "1")};
 `;
 
 export const Row = styled.div`
@@ -25,6 +26,8 @@ export const Row = styled.div`
 `;
 
 export const Name = styled.span`
+  text-decoration: ${props => props.checked ? 'line-through' : 'none'};
+  font-style: ${props => props.checked ? 'italic' : 'none'};
   font-weight: bolder;
   font-size: 24px;
   color: ${corPrimaria};
@@ -53,6 +56,7 @@ export const Edit = styled.button`
   background-color: ${corPrimaria};
   color: ${corButtons};
   cursor: pointer;
+  visibility: ${props => props.checked ? 'hidden' : 'visible'};;
 `;
 export const Delete = styled(Edit)`
   color: #cd5c5c;

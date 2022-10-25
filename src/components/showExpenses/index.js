@@ -35,11 +35,30 @@ function ShowExpenses() {
           valorFormatado = valorFormatado.replace(".", ",");
           dataAmericana = doc.Vencimento;
           dataBrasileira = dataAmericana.split('-').reverse().join('/');
-
+          
+          let dataSplited = dataBrasileira.split("/");
+          let calendarAlert = 0;
+          
+          if((dataSplited[0] === new Date().getDate() - 2) && (dataSplited[1] === new Date().getMonth) && (dataSplited[2] === new Date().getFullYear)){
+            calendarAlert = 1;
+          }
+          if((dataSplited[0] === new Date().getDate() - 1) && (dataSplited[1] === new Date().getMonth) && (dataSplited[2] === new Date().getFullYear)){
+            calendarAlert = 2;
+          }
+          if((dataSplited[0] >= new Date().getDate()) && (dataSplited[1] === new Date().getMonth) && (dataSplited[2] === new Date().getFullYear)){
+            calendarAlert = 3;
+          }
+          
           return (
             <S.Card key={doc.id} checked={doc.Checked}>
               <S.Row>
                 <S.Name checked={doc.Checked} onClick={() => alterCheck(doc.id)}>{doc.Despesa}</S.Name>
+                <S.Alert
+                  className="material-symbols-outlined"
+                  alert={calendarAlert}
+                >
+                  priority_high
+                </S.Alert>
                 <S.Edit
                   checked={doc.Checked}
                   className="material-symbols-outlined"
@@ -69,7 +88,7 @@ function ShowExpenses() {
         })}
         <S.H1>Total: R$ {totalFormatado}</S.H1>
         <S.DelAll onClick={(e) => sweetConfirmForAll()}>
-          Delete All Expenses
+          Deletar todas as despesas
         </S.DelAll>
       </S.List>
     </>

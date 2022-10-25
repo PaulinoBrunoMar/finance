@@ -56,10 +56,19 @@ export const Edit = styled.button`
   background-color: ${corPrimaria};
   color: ${corButtons};
   cursor: pointer;
-  visibility: ${props => props.checked ? 'hidden' : 'visible'};;
+  visibility: ${props => props.checked ? 'hidden' : 'visible'};
 `;
 export const Delete = styled(Edit)`
   color: #cd5c5c;
+`;
+
+export const Alert = styled.div`
+  visibility: ${props => props.alert === 0 ? 'hidden' : 'visible'};
+  border: 2px solid;
+  border-radius: 50%;
+  color: ${props => props.alert === 1 ? '#ffeb00' : ''};
+  color: ${props => props.alert === 2 ? '#fa9102' : ''};
+  color: ${props => props.alert === 3 ? '#e5111d' : ''};
 `;
 
 export const DelAll = styled(Edit)`

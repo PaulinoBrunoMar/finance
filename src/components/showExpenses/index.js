@@ -38,14 +38,19 @@ function ShowExpenses() {
           
           let dataSplited = dataBrasileira.split("/");
           let calendarAlert = 0;
-          
-          if((dataSplited[0] === new Date().getDate() - 2) && (dataSplited[1] === new Date().getMonth) && (dataSplited[2] === new Date().getFullYear)){
+
+          let diaHoje = new Date().getDate();
+          let mesHoje = new Date().getMonth() + 1;
+          let anoHoje = new Date().getFullYear();
+
+
+          if((parseInt(dataSplited[0]) === diaHoje + 2) && (parseInt(dataSplited[1]) === mesHoje) && (parseInt(dataSplited[2]) === anoHoje)){
             calendarAlert = 1;
           }
-          if((dataSplited[0] === new Date().getDate() - 1) && (dataSplited[1] === new Date().getMonth) && (dataSplited[2] === new Date().getFullYear)){
+          if((parseInt(dataSplited[0]) === diaHoje + 1) && (parseInt(dataSplited[1]) === mesHoje) && (parseInt(dataSplited[2]) === anoHoje)){
             calendarAlert = 2;
           }
-          if((dataSplited[0] >= new Date().getDate()) && (dataSplited[1] === new Date().getMonth) && (dataSplited[2] === new Date().getFullYear)){
+          if((parseInt(dataSplited[0]) <= diaHoje) && (parseInt(dataSplited[1]) === mesHoje) && (parseInt(dataSplited[2]) === anoHoje)){
             calendarAlert = 3;
           }
           

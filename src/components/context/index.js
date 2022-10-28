@@ -164,34 +164,36 @@ export const MyContextProvider = ({ children }) => {
 
   const sweetConfirmForOne = (id) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Tem certeza?",
+      text: "Você não conseguirá reverter isso!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteExpense(id);
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire("Deletado!", "Sua despesa foi removida com sucesso.", "success");
       }
     });
   };
 
   const sweetConfirmForAll = () => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You will delete all your expenses!",
+      title: "Tem certeza?",
+      text: "Você irá apagar toda a lista de despesas!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteAll();
-        Swal.fire("Cleaned!", "All Your expenses has been deleted.", "success");
+        Swal.fire("Limpo!", "Toda a sua lista foi apagada.", "success");
       }
     });
   };
